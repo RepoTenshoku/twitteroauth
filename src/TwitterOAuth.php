@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The most popular PHP library for use with the Twitter OAuth REST API.
  *
@@ -31,6 +32,8 @@ class TwitterOAuth extends Config
     private $signatureMethod;
     /** @var int Number of attempts we made for the request */
     private $attempts = 0;
+    /** @var boolean If FALSE skis the SSL verification for hosts and peers */
+    private $sslVerificationStatus = true;
 
     /**
      * Constructor
@@ -51,6 +54,17 @@ class TwitterOAuth extends Config
         if (empty($oauthToken) && !empty($oauthTokenSecret)) {
             $this->setBearer($oauthTokenSecret);
         }
+    }
+
+    /**
+     * Enables/ disables the SSL verification for Hosts and Peers for any CURL call.
+     *
+     * @param boolean $staus Default to TRUE
+     * @return void
+     */
+    public function sslVerification($staus = true)
+    {
+        $this->sslVerificationStatus = $status;
     }
 
     /**
@@ -292,8 +306,7 @@ class TwitterOAuth extends Config
      */
     private function uploadMediaNotChunked($path, array $parameters)
     {
-        if (! is_readable($parameters['media']) ||
-            ($file = file_get_contents($parameters['media'])) === false) {
+        if (!is_readable($parameters['media']) || ($file = file_get_contents($parameters['media'])) === false) {
             throw new \InvalidArgumentException('You must supply a readable file');
         }
         $parameters['media'] = base64_encode($file);
@@ -474,8 +487,8 @@ class TwitterOAuth extends Config
             CURLOPT_CONNECTTIMEOUT => $this->connectionTimeout,
             CURLOPT_HEADER => true,
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_SSL_VERIFYHOST => 2,
-            CURLOPT_SSL_VERIFYPEER => true,
+            CURLOPT_SSL_VERIFYHOST => $this->sslVerificationStatus ? 2 : 0,
+            CURLOPT_SSL_VERIFYPEER => $this->sslVerificationStatus,
             CURLOPT_TIMEOUT => $this->timeout,
             CURLOPT_USERAGENT => $this->userAgent,
         ];
@@ -574,7 +587,7 @@ class TwitterOAuth extends Config
         $headers = [];
         foreach (explode("\r\n", $header) as $line) {
             if (strpos($line, ':') !== false) {
-                list ($key, $value) = explode(': ', $line);
+                list($key, $value) = explode(': ', $line);
                 $key = str_replace('-', '_', strtolower($key));
                 $headers[$key] = trim($value);
             }
