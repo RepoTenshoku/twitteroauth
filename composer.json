@@ -1,5 +1,6 @@
 {
   "name": "repotenshoku/twitteroauth",
+  "version": "0.10.0",
   "type": "library",
   "description": "The most popular PHP library for use with the Twitter OAuth REST API in a custom version for RepoTenshoku and others.",
   "keywords": [
