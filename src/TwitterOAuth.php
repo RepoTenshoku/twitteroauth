@@ -62,7 +62,7 @@ class TwitterOAuth extends Config
      * @param boolean $staus Default to TRUE
      * @return void
      */
-    public function sslVerification($staus = true)
+    public function sslVerification($status = true)
     {
         $this->sslVerificationStatus = $status;
     }
