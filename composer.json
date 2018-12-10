@@ -1,5 +1,5 @@
 {
-  "name": "repotenshoku/twitteroauth",
+  "name": "abraham/twitteroauth",
   "version": "0.10.0",
   "type": "library",
   "description": "The most popular PHP library for use with the Twitter OAuth REST API in a custom version for RepoTenshoku and others.",
@@ -13,7 +13,7 @@
     "twitter oauth"
   ],
   "license": "MIT",
-  "homepage": "https://repotenshoku.com",
+  "homepage": "https://twitteroauth.com",
   "authors": [
     {
       "name": "Abraham Williams",
@@ -29,7 +29,8 @@
     }
   ],
   "support": {
-    "source": "https://github.com/RepoTenshoku/twitteroauth"
+    "source": "https://github.com/abraham/twitteroauth",
+    "issues": "https://github.com/abraham/twitteroauth/issues"
   },
   "require": {
     "php": "^5.6 || ^7.0 || ^7.1 || ^7.2",
@@ -42,7 +43,7 @@
   },
   "autoload": {
     "psr-4": {
-      "RepoTenshoku\\TwitterOAuth\\": "src"
+      "Abraham\\TwitterOAuth\\": "src"
     }
   }
 }
